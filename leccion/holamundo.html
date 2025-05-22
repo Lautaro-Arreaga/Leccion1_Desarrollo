@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mercado del Río - Calculadora de Propina</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #fff;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar, footer {
+      background-color: #000; 
+    }
+    .navbar-brand, footer p {
+      color: #d4af37;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    footer p {
+      margin: 0;
+    }
+    .subtitle {
+      color: #d4af37;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+    .local-img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .calc-container {
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      padding: 1rem;
+      border: 1px solid #d4af37;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+      background-color: #fff;
+    }
+    .btn-golden {
+      background-color: #d4af37;
+      border-color: #b28e16;
+      color: #000;
+      font-weight: 600;
+    }
+    .btn-golden:hover {
+      background-color: #b28e16;
+      color: #fff;
+    }
+    .resultados {
+      margin-top: 1.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container d-flex align-items-center">
+    <img src="img/mercado del rio.jpg" alt="Logo Mercado del Río" class="me-3 rounded-circle" style="width:50px; height:50px; object-fit: cover;"/>
+    <a class="navbar-brand mb-0" href="#">Mercado del Río</a>
+  </div>
+</nav>
+
+<main class="container">
+  <img
+    src="img/local2.jpg"
+    alt="Mercado del Río - Restaurante"
+    class="local-img"
+  />
+
+  <h2 class="subtitle">Calcula tu propina fácilmente</h2>
+
+  <div class="calc-container">
+    <form id="formPropina">
+      <div class="mb-3">
+        <label for="cuenta" class="form-label">Total de la cuenta (USD)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="cuenta"
+          placeholder="Ej: 59.99"
+          min="0"
+          step="0.01"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="porcentaje" class="form-label">Porcentaje de propina (%)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="porcentaje"
+          placeholder="Ej: 20"
+          min="0"
+          max="100"
+          step="1"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-golden w-100">Calcular</button>
+    </form>
+
+    <div class="resultados">
+      <p>Propina: <strong id="resultadoPropina">--</strong> USD</p>
+      <p>Total a pagar: <strong id="resultadoTotal">--</strong> USD</p>
+    </div>
+  </div>
+</main>
+
+<footer class="text-center py-3">
+  <p>© 2025 Mercado del Río | Todos los derechos reservados</p>
+</footer>
+
+<script>
+  document.getElementById('formPropina').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const cuenta = parseFloat(document.getElementById('cuenta').value);
+    const porcentaje = parseFloat(document.getElementById('porcentaje').value);
+
+    if (isNaN(cuenta) || isNaN(porcentaje)) {
+      alert('Por favor, ingresa valores numéricos válidos.');
+      return;
+    }
+
+    if (cuenta < 0 || porcentaje < 0 || porcentaje > 100) {
+      alert('El total debe ser mayor o igual a 0 y el porcentaje entre 0 y 100.');
+      return;
+    }
+
+    const propina = cuenta * (porcentaje / 100);
+    const total = cuenta + propina;
+
+    document.getElementById('resultadoPropina').textContent = propina.toFixed(2);
+    document.getElementById('resultadoTotal').textContent = total.toFixed(2);
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
